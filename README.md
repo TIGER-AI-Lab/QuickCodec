@@ -5,7 +5,7 @@ QuickCodec is designed for fast loading videos for VLLMs, especially long videos
 
 ---
 
-[![GitHub Test Status][github-tests-badge]][github-tests] [![Documentation][docs-badge]][docs] [![Python Package Index][pypi-badge]][pypi]
+[![Python Package Index][pypi-badge]][pypi]
 
 
 Installation
@@ -43,6 +43,18 @@ pip install .
 
 ---
 
+Roadmap
+----------------------
+
+QuickCodec is ojnly just getting started!
+As our lab is always working on (long) video, we will continue to add new features and remove sharp edges.
+
+- Support more sparse access patterns, I.e. a seek-if-needed design.
+- Add more elegant handling of shared memory.
+- Add long lived workers.
+- Add better error handling if a subprocess blows up.
+
+
 Supported Platforms
 ----------------------
 - **Linux:** this is our main platform and what we test against. If you have problems with any linux distro please open an issue and we will try to resolve it.
@@ -62,7 +74,7 @@ We inherit all the features of PyAv (including processing for other modalities l
 [docs-badge]: https://img.shields.io/badge/docs-on%20pyav.basswood--io.com-blue.svg
 [docs]: https://pyav.basswood-io.com
 [pypi-badge]: https://img.shields.io/pypi/v/av.svg?colorB=CCB39A
-[pypi]: https://pypi.org/project/av
+[pypi]: https://pypi.org/project/quickvideo
 [discuss]: https://github.com/PyAV-Org/PyAV/discussions
 
 [github-tests-badge]: https://github.com/PyAV-Org/PyAV/workflows/tests/badge.svg
@@ -70,6 +82,4 @@ We inherit all the features of PyAv (including processing for other modalities l
 [github]: https://github.com/TigerLab/PyAV
 
 [ffmpeg]: https://ffmpeg.org/
-[conda-forge]: https://conda-forge.github.io/
-[conda-install]: https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
 [pyav]: https://github.com/PyAV-Org/PyAV
