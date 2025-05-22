@@ -1,3 +1,0 @@
-[console_scripts]
-quickcodec = quickcodec.__main__:mp_entrypoint
-quickcodec_interleaved = quickcodec.__main__:mp_interleaved_entrypoint
