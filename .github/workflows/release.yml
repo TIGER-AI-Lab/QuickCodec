@@ -1,0 +1,92 @@
+name: Release
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+jobs:
+  package-source:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build source package
+        run: |
+          pip install -U --pre cython setuptools numpy
+          python scripts/fetch-vendor.py --config-file scripts/ffmpeg-7.1.json /tmp/vendor
+          PKG_CONFIG_PATH=/tmp/vendor/lib/pkgconfig python setup.py sdist
+      - name: Upload source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-source
+          path: dist/
+
+  package-wheel:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            arch: arm64
+          - os: macos-13
+            arch: x86_64
+          - os: ubuntu-24.04-arm
+            arch: aarch64
+          - os: ubuntu-24.04
+            arch: i686
+          - os: ubuntu-24.04
+            arch: x86_64
+          - os: windows-latest
+            arch: AMD64
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install packages
+        if: matrix.os == 'macos-13'
+        run: |
+          brew update
+          brew install pkg-config
+      - name: Set Minimum MacOS Target
+        if: matrix.os == 'macos-13' || matrix.os == 'macos-14'
+        run: |
+          echo "MACOSX_DEPLOYMENT_TARGET=12.0" >> $GITHUB_ENV
+      - name: Build wheels
+        env:
+          CIBW_ARCHS: ${{ matrix.arch }}
+          CIBW_BEFORE_ALL_LINUX: yum install -y alsa-lib libxcb
+          CIBW_BEFORE_BUILD: pip install numpy; python scripts/fetch-vendor.py --config-file scripts/ffmpeg-7.1.json /tmp/vendor
+          CIBW_BEFORE_BUILD_MACOS: python scripts/fetch-vendor.py --config-file scripts/ffmpeg-7.1.json /tmp/vendor
+          CIBW_BEFORE_BUILD_WINDOWS: python scripts\fetch-vendor.py --config-file scripts\ffmpeg-7.1.json C:\cibw\vendor
+          CIBW_ENVIRONMENT_LINUX: LD_LIBRARY_PATH=/tmp/vendor/lib:$LD_LIBRARY_PATH PKG_CONFIG_PATH=/tmp/vendor/lib/pkgconfig
+          CIBW_ENVIRONMENT_MACOS: PKG_CONFIG_PATH=/tmp/vendor/lib/pkgconfig LDFLAGS=-headerpad_max_install_names
+          CIBW_ENVIRONMENT_WINDOWS: INCLUDE=C:\\cibw\\vendor\\include LIB=C:\\cibw\\vendor\\lib PYAV_SKIP_TESTS=unicode_filename
+          CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: delvewheel repair --add-path C:\cibw\vendor\bin -w {dest_dir} {wheel}
+          CIBW_SKIP: "pp* *-musllinux*"
+        run: |
+          pip install cibuildwheel delvewheel
+          cibuildwheel --output-dir dist
+        shell: bash
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ matrix.os }}-${{ matrix.arch }}
+          path: dist/
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [package-source, package-wheel]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_TOKEN }}
