@@ -58,7 +58,7 @@ As our lab is always working on (long) video, we will continue to add new featur
 Supported Platforms
 ----------------------
 - **Linux:** this is our main platform and what we test against. If you have problems with any linux distro please open an issue and we will try to resolve it.
-- **MacOS:** as it is unix-like, our everything should work for MacOS, however *we do not actively test against it*.
+- **MacOS:** as it is unix-like, everything should work for MacOS, however *we do not actively test against it*.
 - **Windows:** we build for it, however it is quite different and you may encounter weird problems.
 
 Notice
