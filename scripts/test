@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Exit as soon as something errors.
+set -e
+
+if [[ ! "$_PYAV_ACTIVATED" ]]; then
+    export here="$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd)"
+    source "$here/activate.sh"
+fi
+
+cd "$PYAV_ROOT"
+
+
+TESTSUITE="${1-main}"
+
+istest() {
+    [[ "$TESTSUITE" == all || "$TESTSUITE" == "$1" ]]
+    return $?
+}
+
+$PYAV_PYTHON -c "import av; print(f'PyAV: {av.__version__}'); print(f'FFMPEG: {av.ffmpeg_version_info}')"
+
+if istest main; then
+    $PYAV_PYTHON -m pytest
+fi
+
+if istest examples; then
+    for name in $(find examples -name '*.py'); do
+        echo
+        echo === $name
+        cd "$PYAV_ROOT"
+        mkdir -p "sandbox/$1"
+        cd "sandbox/$1"
+        if ! python "$PYAV_ROOT/$name"; then
+            echo FAILED $name with code $?
+            exit $?
+        fi
+    done
+fi

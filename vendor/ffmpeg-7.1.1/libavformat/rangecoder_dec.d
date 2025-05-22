@@ -1,0 +1,7 @@
+libavformat/rangecoder_dec.o: libavformat/rangecoder_dec.c \
+ libavcodec/rangecoder.c libavutil/attributes.h libavutil/avassert.h \
+ config.h libavutil/log.h libavutil/attributes.h libavutil/version.h \
+ libavutil/macros.h libavutil/avconfig.h libavutil/bswap.h \
+ libavutil/intreadwrite.h libavutil/bswap.h \
+ libavutil/aarch64/intreadwrite.h libavcodec/rangecoder.h \
+ libavutil/intmath.h

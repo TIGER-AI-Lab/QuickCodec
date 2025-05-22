@@ -1,0 +1,14 @@
+prefix=/home/bsch/QuickCodec/vendor/build/ffmpeg-7.1.1
+exec_prefix=${prefix}
+libdir=/home/bsch/QuickCodec/vendor/build/ffmpeg-7.1.1/lib
+includedir=/home/bsch/QuickCodec/vendor/build/ffmpeg-7.1.1/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 61.19.101
+Requires: 
+Requires.private: libswresample >= 5.3.100, libavutil >= 59.39.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec 
+Libs.private: -pthread -lm -latomic -lx264 -lz
+Cflags: -I${includedir}

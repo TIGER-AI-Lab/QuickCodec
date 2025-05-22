@@ -1,0 +1,41 @@
+# General
+*~
+.DS_Store
+.nfs.*
+._*
+
+# Environment
+/.eggs
+/tmp
+/vendor
+/venv
+/venvs
+/repaired_wheels
+
+# Build products
+*.dll
+*.egg-info
+*.lib
+*.pyc
+*.so
+/*.sdf
+/*.sln
+/*.suo
+/av/**/*.exp
+/av/**/*.lib
+/av/**/*.pdb
+/av/**/*.pyd
+/build
+/dist
+/docs/_build
+/ipch
+/msvc-projects
+/src
+/docs/_ffmpeg
+
+# Testing.
+*.spyderproject
+.idea
+/sandbox
+/tests/assets
+/tests/samples

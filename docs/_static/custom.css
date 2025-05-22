@@ -1,0 +1,25 @@
+body {
+    text-rendering: optimizeLegibility;
+}
+
+.sphinxsidebarwrapper {
+    overflow: scroll;
+}
+
+.ffmpeg-quicklink {
+    float: right;
+    clear: right;
+    margin: 0;
+}
+
+.ffmpeg-quicklink:before {
+    content: "[";
+}
+
+.ffmpeg-quicklink:after {
+    content: "]";
+}
+
+.body a, .document a {
+    text-decoration: underline !important;
+}

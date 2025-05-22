@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>61", "cython>=3.1.0a1,<4", "numpy>=1.21.0"]
+
+[project]
+name = "quickcodec"
+description = "Pythonic bindings for FFmpeg's libraries."
+readme = "README.md"
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
+authors = [
+    {name = "Benjamin Schneider", email = "Benjamin.Schneider@uwaterloo.ca"},
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Cython",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Sound/Audio :: Conversion",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Multimedia :: Video :: Conversion",
+]
+dynamic = ["version"]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "quickcodec.about.__version__"}
+
+[project.scripts]
+"quickcodec" = "quickcodec.__main__:mp_entrypoint"
+"quickcodec_interleaved" = "quickcodec.__main__:mp_interleaved_entrypoint"
+
+[tool.isort]
+profile = "black"
+known_first_party = ["quickcodec"]
+skip = ["quickcodec/__init__.py"]
