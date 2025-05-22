@@ -2,8 +2,6 @@ QuickCodec
 ====
 
 QuickCodec is designed for fast loading videos for VLLMs, especially long videos with relatively high frame sampling rates.
-QuickVideo is build on top of [FFmpeg][ffmpeg] and [PyAv][pyav] libraries.  
-Huge thanks to the contruibutors and maintainers of those libraries, they have done a huge amount of work create a clean interface that handles a lot of the messy nature of multimedia processing.
 
 ---
 
@@ -45,8 +43,13 @@ pip install .
 
 ---
 
-We inherit all the features of PyAv (including processing for other modalities like audio) which you can read about [here][docs], have fun!
 
+Notice
+----------------------
+QuickVideo is build on top of [FFmpeg][ffmpeg] and [PyAv][pyav] libraries.  
+Huge thanks to the contributors and maintainers of those libraries, they have done a huge amount of work create a clean interface that handles a lot of the messy nature of multimedia processing.
+This project is **not endorsed** any maintainer of PyAv or FFmpeg, if you have any problems with QuickCodec please open as issue on **this repository**.
+We inherit all the features of PyAv (including processing for other modalities like audio) which you can read about [here][docs], have fun!
 
 
 [conda-badge]: https://img.shields.io/conda/vn/conda-forge/av.svg?colorB=CCB39A
