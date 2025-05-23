@@ -5,7 +5,7 @@ QuickCodec is designed for fast loading videos for VLLMs, especially long videos
 
 ---
 
-[![Python Package Index][pypi-badge]][pypi]
+![version]
 
 
 Installation
@@ -49,6 +49,7 @@ Roadmap
 QuickCodec is ojnly just getting started!
 As our lab is always working on (long) video, we will continue to add new features and remove sharp edges.
 
+- Pull in qwen_procesing to this library, as it is the last bottleneck after accelerating prefill and loading.
 - Support more sparse access patterns, I.e. a seek-if-needed design.
 - Add more elegant handling of shared memory.
 - Add long lived workers.
@@ -76,7 +77,7 @@ We inherit all the features of PyAv (including processing for other modalities l
 [pypi-badge]: https://img.shields.io/pypi/v/av.svg?colorB=CCB39A
 [pypi]: https://pypi.org/project/quickvideo
 [discuss]: https://github.com/PyAV-Org/PyAV/discussions
-
+[version]: https://img.shields.io/badge/Version-0.0.1-blue
 [github-tests-badge]: https://github.com/PyAV-Org/PyAV/workflows/tests/badge.svg
 [github-tests]: https://github.com/PyAV-Org/PyAV/actions?workflow=tests
 [github]: https://github.com/TigerLab/PyAV
