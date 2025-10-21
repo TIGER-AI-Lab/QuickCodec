@@ -13,6 +13,9 @@ authors = [
 requires-python = ">=3.9"
 dependencies = [
     "torchcodec",
+    "torch",
+    "joblib",
+    "numpy",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
