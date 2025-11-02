@@ -1,5 +1,5 @@
 import torch
-from quickcodec import VideoDecoder
+from torchcodec.decoders import VideoDecoder
 from time import perf_counter_ns
 import argparse
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     (video_path, threads, device) = args.video_path, args.threads, args.device
 
-    vr = VideoDecoder(video_path, device="cuda", parrallel=32)
+    vr = VideoDecoder(video_path, device="cpu")
 
     meta = vr.metadata
     fps = round(meta.average_fps)
