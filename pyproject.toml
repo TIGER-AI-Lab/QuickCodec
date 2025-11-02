@@ -1,5 +1,5 @@
 [project]
-name = "debug"
+name = "quickcodec"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -8,7 +8,11 @@ dependencies = [
     "torch==2.9.0",
     "torchvision==0.24.0",
     "torchcodec==0.8.1",
+    "joblib>=1.5.2",
 ]
+
+[tool.setuptools.packages.find]
+where = ["quickcodec"]
 
 [tool.uv.sources]
 torch = [
@@ -30,3 +34,7 @@ explicit = true
 name = "torchcodec-cu130"
 url = "https://download.pytorch.org/whl/cu130"
 explicit = true
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"

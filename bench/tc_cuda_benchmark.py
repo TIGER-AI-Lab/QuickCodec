@@ -5,9 +5,12 @@ import argparse
 
 def bench(f, *args, num_exp=3, warmup=1, **kwargs):
     """Benchmark a function by running it multiple times and measuring execution time."""
+    print(f"Executing warmup runs: {warmup}")
     for _ in range(warmup):
         f(*args, **kwargs)
 
+
+    print(f"Executing timing experiments with runs: {num_exp}")
     times = []
     for _ in range(num_exp):
         start = perf_counter_ns()
@@ -34,7 +37,6 @@ def report_stats(times, unit="s"):
 
 
 if __name__ == "__main__":
-    #/scratch/b3schnei/movie1080p.BluRay.1hour.x264_2.mp4
     parser = argparse.ArgumentParser(description="Benchmark video reading performance.")
     parser.add_argument("video_path", type=str, help="Path to the input video file")
     parser.add_argument("--threads", type=int, default=16, help="Number of threads to use")
@@ -42,9 +44,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     (video_path, threads, device) = args.video_path, args.threads, args.device
 
-    vr = VideoReader(video_path, parrallel=threads, device=device)
+    vr = VideoDecoder(video_path, device="cuda")
 
-    meta = vr.decoder.metadata
+    meta = vr.metadata
     fps = round(meta.average_fps)
     num_frames = meta.num_frames
     duration = num_frames / fps
@@ -56,7 +58,7 @@ if __name__ == "__main__":
     sample_indices = [int(i * fps) for i in range(int(duration)) if i * fps < num_frames]
     print(f"Sampling {len(sample_indices)} frames (1 per second)")
         
-    times, result_sequential = bench(vr.read, sample_indices)
+    times, result_sequential = bench(vr.get_frames_at, sample_indices)
     sequential_time = report_stats(times, unit="s")
 
 

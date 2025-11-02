@@ -16,9 +16,10 @@ class VideoReader:
         self.video_path = video_path
         self.device = device
         self.parrallel = parrallel
-        self.decoder = VideoDecoder(video_path, seek_mode="approximate")
+        self.decoder = VideoDecoder(video_path, seek_mode="approximate", device="cpu")
+        self.metadata = self.decoder.metadata
 
-    def read(self, indices: List[int])->np.ndarray:
+    def get_frames_at(self, indices: List[int])->torch.Tensor:
         self.decode_with_multithreading(indices, self.video_path)
 
     def __len__(self):
