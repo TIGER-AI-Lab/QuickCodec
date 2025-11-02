@@ -11,4 +11,6 @@ WORKDIR /workspace
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 COPY debug.sh .
 COPY pyproject.toml .
+RUN uv sync
 RUN curl -L -o /workspace/video.mp4 https://videos.pexels.com/video-files/854132/854132-sd_640_360_25fps.mp4
+COPY assets/movie1080p.BluRay.1hour.x264_2_448x448.mp4 .
