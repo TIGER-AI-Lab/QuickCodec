@@ -9,7 +9,7 @@ RUN apt-get install curl -y
 RUN mkdir /workspace
 WORKDIR /workspace
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-RUN source /root/.local/bin/env
+RUN . /root/.local/bin/env
 COPY debug.sh .
 COPY pyproject.toml .
 RUN uv sync
