@@ -11,9 +11,6 @@ dependencies = [
     "joblib>=1.5.2",
 ]
 
-[tool.setuptools.packages.find]
-where = ["quickcodec"]
-
 [tool.uv.sources]
 torch = [
   { index = "pytorch-cu130", marker = "sys_platform == 'linux'" },

@@ -11,7 +11,7 @@
 /venv
 /venvs
 /repaired_wheels
-
+/quickcodec/assets
 # Build products
 *.dll
 *.egg-info
