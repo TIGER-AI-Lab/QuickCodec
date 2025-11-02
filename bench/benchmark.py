@@ -1,5 +1,5 @@
 import torch
-from quickcodec import VideoReader
+from torchcodec.decoders import VideoDecoder
 from time import perf_counter_ns
 import argparse
 
